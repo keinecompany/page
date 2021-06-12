@@ -1,0 +1,14 @@
+{% capture t %}<!doctype html>
+<html lang="en">
+  <head>
+{% include head.html %}
+  </head>
+  <body>
+{{ content }}
+    <footer>
+        <div class="page-metrics">
+          html (~{% endcapture %}{% capture b %}bytes) &oslash; built ({{ "now" | date: "%v %H:?? %z" }})
+        </div>
+    </footer>
+  </body>
+</html>{% endcapture %}{{ t }}{{ t.size | plus: b.size }}{{ b }}
