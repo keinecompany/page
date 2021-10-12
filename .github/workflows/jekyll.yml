@@ -29,3 +29,4 @@ jobs:
           KEY: ${{secrets.DEPLOY_SSH_KEY}}
           TARGET: ${{secrets.DEPLOY_TARGET}}
           SOURCE: ./_site/
+          ARGS_MORE: --no-o --no-g --no-perms -O -J
