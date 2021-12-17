@@ -19,14 +19,10 @@ jobs:
         -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
         jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
         
-    - name: Action - rsync
-      # You may pin to the exact commit or the version.
-      # uses: up9cloud/action-rsync@4aad3e11ee933f8a8e6e1002552707e6474ab76a
-      uses: up9cloud/action-rsync@v1.3
-      env:
-          HOST: keine.company
-          USER: ${{secrets.DEPLOY_USER}}
-          KEY: ${{secrets.DEPLOY_SSH_KEY}}
-          TARGET: ${{secrets.DEPLOY_TARGET}}
-          SOURCE: ./_site/
-          ARGS_MORE: --no-o --no-g --no-perms -O -J
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: ${{ github.ref == 'refs/heads/master' }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site
+        cname: keine.company
